@@ -13,6 +13,6 @@ import java.util.List;
  */
 @Mapper
 public interface CartMapper extends BaseMapper<Cart> {
-    @Select("select b.book_id as bid, b.book_name as bname, b.new_price, b.cover, b.details, c.num from (select * from cart where uid = #{uid}) as c, book as b where b.book_id = c.bid")
+    @Select("select b.book_id as bid, b.book_name as bname, b.new_price, b.cover, b.details, c.num from (select * from cart where uid = #{uid} and o_status = 0) as c, book as b where b.book_id = c.bid ")
     List<Book> selectOrdersByUid(Integer uid);
 }

@@ -44,7 +44,7 @@
       <ul class="goods">
         <li class="goods_info" v-for="item in booksInfo" :key="item.bid">
           <div class="goods_pic_wrap">
-            <img :src="item.cover" />
+            <img :src="imgUrl + item.cover" />
           </div>
           <div class="goods_details">
             <div class="goods_title">{{item.title}}</div>
@@ -124,6 +124,7 @@ export default {
       })
       if(res.data.code == 200) {
         alert('添加成功')
+        this.$router.push('/cart')
       }
     }
   }

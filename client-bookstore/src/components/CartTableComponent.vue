@@ -1,11 +1,15 @@
 <template>
   <div class="container">
     <h1 class="title">购物车</h1>
-    <el-table :data="cart" style="width: 100%" @selection-change="handleSelectionChange">
+    <el-table
+      :data="cart"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="image" label="商品图片">
         <template slot-scope="{ row }">
-          <img :src="row.cover" alt="" class="product-image" />
+          <img :src="imgUrl + row.cover" alt="" class="product-image" />
         </template>
       </el-table-column>
       <el-table-column prop="bname" label="商品名称"></el-table-column>
@@ -42,7 +46,11 @@
 </template>
 
 <script>
-import {getOrdersInfoAPI, deleteOrderAPI} from '@/api/data'
+import {
+  getOrdersInfoAPI,
+  deleteOrderAPI,
+  settleAccountsAPI,
+} from "@/api/data";
 export default {
   data() {
     return {
@@ -70,30 +78,33 @@ export default {
         },
       ],
       //被选中的数据
-      multipleSelection: []
+      multipleSelection: [],
+      newArr: [],
     };
   },
   mounted() {
-    this.getOrdersInfo()
+    this.getOrdersInfo();
   },
   computed: {
     total() {
       let total = 0;
       for (const key in this.multipleSelection) {
-        total += this.multipleSelection[key].newPrice*this.multipleSelection[key].num
+        total +=
+          this.multipleSelection[key].newPrice *
+          this.multipleSelection[key].num;
       }
-      return total
+      return total;
     },
   },
   methods: {
     async getOrdersInfo() {
       let res = await getOrdersInfoAPI({
-        uid: this.$store.state.userInfo.uid
-      })
+        uid: this.$store.state.userInfo.uid,
+      });
       console.log(res);
       console.log(this.$store.state.userInfo.uid);
-      if(res.data.code == 200) {
-        this.cart = res.data.data
+      if (res.data.code == 200) {
+        this.cart = res.data.data;
       }
     },
     async removeFromCart(product) {
@@ -102,10 +113,10 @@ export default {
       console.log(product.bid);
       let res = await deleteOrderAPI({
         uid: this.$store.state.userInfo.uid,
-        bid: product.bid
-      })
-      if(res.data.code == 200) {
-        alert('删除成功')
+        bid: product.bid,
+      });
+      if (res.data.code == 200) {
+        alert("删除成功");
         this.$router.push(0);
       }
     },
@@ -119,12 +130,40 @@ export default {
         product.total = product.newPrice * product.num;
       }
     },
-    checkout() {
-      alert("结账成功！");
+    async checkout() {
+      let res = await settleAccountsAPI({
+        uid: this.newArr[0].uid,
+        bid: this.newArr[0].bid
+      });
+      console.log(res);
+      if (this.multipleSelection == "") {
+        alert("请选择商品");
+      } else {
+        if (res.data.code == 200) {
+          alert("结账成功！");
+          this.$router.push('/order')
+        } else {
+          alert("结账出现了问题");
+        }
+      }
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
-    }
+      this.multipleSelection.forEach((item) => {
+        item.uid = this.$store.state.userInfo.uid;
+      });
+      console.log(this.multipleSelection);
+      this.newArr = this.multipleSelection.map((item) => {
+        return Object.assign(
+          {},
+          {
+            uid: item.uid,
+            bid: item.bid,
+          }
+        );
+      });
+      console.log(this.newArr);
+    },
   },
 };
 </script>

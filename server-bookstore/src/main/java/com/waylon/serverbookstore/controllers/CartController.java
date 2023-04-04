@@ -46,7 +46,14 @@ public class CartController {
     }
 
     @PutMapping("/submit")
-    public Respond submitOrder() {
+    public Respond submitOrder(@RequestBody Cart cart) {
+        System.out.println(cart);
+        cartService.updateOrder(cart);
         return new Respond(Code.SUCCESS, "提交成功", null);
+    }
+    @GetMapping("/finished")
+    public Respond finishOrders(Integer uid) {
+        List<Cart> carts = cartService.selectFinishOrdersByUid(uid);
+        return new Respond(Code.SUCCESS, "获取成功", carts);
     }
 }

@@ -13,4 +13,5 @@ public interface ICartService {
     List<Book> selectOrdersByUid(Integer uid);
     void delOrder(Cart order);
     int updateOrder(Cart cart);
+    List<Cart> selectFinishOrdersByUid(Integer uid);
 }

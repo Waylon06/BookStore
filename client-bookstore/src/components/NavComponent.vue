@@ -11,15 +11,16 @@
       <el-col :span="12">
         <div class="grid-content">
           <el-menu
-            :default-active="activeIndex2"
+            :default-active="$route.path"
             class="el-menu-demo"
             mode="horizontal"
             @select="handleSelect"
             background-color="#567487"
             text-color="#fff"
             active-text-color="#ffd04b"
+            router
           >
-            <el-menu-item index="1" @click="$router.push('/home')"
+            <el-menu-item index="/home"
               >首页</el-menu-item
             >
             <!-- <el-submenu index="2" disabled>
@@ -34,13 +35,13 @@
                 <el-menu-item index="2-4-3">选项3</el-menu-item>
               </el-submenu>
             </el-submenu> -->
-            <el-menu-item index="3" @click="$router.push('/notice')"
+            <el-menu-item index="/notice"
               >公告栏</el-menu-item
             >
-            <el-menu-item index="4" @click="$router.push('/cart')"
+            <el-menu-item index="/cart" 
               >购物车</el-menu-item
             >
-            <el-menu-item index="5" @click="$router.push('/order')">我的订单</el-menu-item>
+            <el-menu-item index="/order">我的订单</el-menu-item>
             <div class="login">
               <router-link to="/login" v-show="!isLogined">登录</router-link>
               <p v-show="isLogined">{{userInfo.username}}</p>

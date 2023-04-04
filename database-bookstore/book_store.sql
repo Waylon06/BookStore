@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 28/03/2023 11:50:23
+ Date: 04/04/2023 11:10:06
 */
 
 SET NAMES utf8mb4;
@@ -37,11 +37,11 @@ CREATE TABLE `book`  (
 -- ----------------------------
 -- Records of book
 -- ----------------------------
-INSERT INTO `book` VALUES (1, '鲁滨孙漂流记', '勇敢挑战大自然，充满拼搏的孤岛求生记', 123.00, 'http://47.120.8.6/books/book_1.jpg', '勇敢挑战大自然，充满拼搏的孤岛求生记', 1, 100.00, NULL);
-INSERT INTO `book` VALUES (2, '李自成', '明末李自成领导的农民起义军由渺小变得强大', 200.00, 'http://47.120.8.6/books/book_2.jpg', '明末李自成领导的农民起义军由渺小变得强大', 2, 99.00, NULL);
-INSERT INTO `book` VALUES (3, '老人与海', '老人与海', 125.00, 'http://47.120.8.6/books/book_3.jpg', '老人与海', 1, 80.00, NULL);
-INSERT INTO `book` VALUES (4, '太阳照在桑干河上', '太阳照在桑干河上', 99.00, 'http://47.120.8.6/books/book_4.jpg', '太阳照在桑干河上', 1, 80.00, NULL);
-INSERT INTO `book` VALUES (5, '天上的市街', '天上的市街', 150.00, 'http://47.120.8.6/books/book_5.jpg', '天上的市街', 2, 99.00, NULL);
+INSERT INTO `book` VALUES (1, '鲁滨孙漂流记', '勇敢挑战大自然，充满拼搏的孤岛求生记', 123.00, 'book_1.jpg', '勇敢挑战大自然，充满拼搏的孤岛求生记', 1, 100.00, NULL);
+INSERT INTO `book` VALUES (2, '李自成', '明末李自成领导的农民起义军由渺小变得强大', 200.00, 'book_2.jpg', '明末李自成领导的农民起义军由渺小变得强大', 2, 99.00, NULL);
+INSERT INTO `book` VALUES (3, '老人与海', '老人与海', 125.00, 'book_3.jpg', '老人与海', 1, 80.00, NULL);
+INSERT INTO `book` VALUES (4, '太阳照在桑干河上', '太阳照在桑干河上', 99.00, 'book_4.jpg', '太阳照在桑干河上', 1, 80.00, NULL);
+INSERT INTO `book` VALUES (5, '天上的市街', '天上的市街', 150.00, 'book_5.jpg', '天上的市街', 2, 99.00, NULL);
 
 -- ----------------------------
 -- Table structure for cart
@@ -54,13 +54,15 @@ CREATE TABLE `cart`  (
   `num` int(0) NULL DEFAULT 1 COMMENT '数量',
   `o_status` int(0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`oid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
 INSERT INTO `cart` VALUES (2, 6, 3, 1, 0);
-INSERT INTO `cart` VALUES (1, 8, 4, 1, 0);
+INSERT INTO `cart` VALUES (1, 9, 5, 1, 1);
+INSERT INTO `cart` VALUES (1, 10, 3, 1, 1);
+INSERT INTO `cart` VALUES (1, 11, 1, 1, 1);
 
 -- ----------------------------
 -- Table structure for notice

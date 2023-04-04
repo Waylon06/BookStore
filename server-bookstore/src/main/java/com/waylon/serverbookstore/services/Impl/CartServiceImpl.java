@@ -49,4 +49,12 @@ public class CartServiceImpl implements ICartService {
         cartMapper.update(cart,cartUpdateWrapper);
         return 0;
     }
+
+    @Override
+    public List<Cart> selectFinishOrdersByUid(Integer uid) {
+        QueryWrapper<Cart> cartQueryWrapper = new QueryWrapper<>();
+        cartQueryWrapper.eq("uid", uid);
+        cartQueryWrapper.eq("o_status",1);
+        return cartMapper.selectList(cartQueryWrapper);
+    }
 }

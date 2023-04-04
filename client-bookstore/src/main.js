@@ -23,6 +23,7 @@ Vue.use(Button)
 Vue.use(Checkbox)
 
 Vue.config.productionTip = false
+Vue.prototype.imgUrl = 'https://waylon-personal-bucket.oss-cn-chengdu.aliyuncs.com/imgStore/'
 
 new Vue({
   router,
