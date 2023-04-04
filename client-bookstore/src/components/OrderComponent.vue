@@ -11,36 +11,43 @@
       <el-table-column prop="username" label="客户名称"></el-table-column>
       <!-- <el-table-column prop="totalAmount" label="总金额"></el-table-column> -->
       <el-table-column prop="ostatus" label="状态"></el-table-column>
+       <el-table-column label="操作">
+        <template slot-scope="{ row }">
+          <el-button type="danger" size="small" @click="delOrder(row)"
+            >删除</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { getFinishedOrderAPI, getOrdersInfoAPI } from "@/api/data";
+import { getFinishedOrderAPI, deleteOrderAPI } from "@/api/data";
 export default {
   data() {
     return {
       orders: [
         {
           productImage: "https://via.placeholder.com/80x80",
-          orderNumber: "2019123456",
-          customerName: "张三",
+          oid: "2019123456",
+          username: "张三",
           totalAmount: 100,
-          status: "已完成",
+          ostatus: "已完成",
         },
         {
           productImage: "https://via.placeholder.com/80x80",
-          orderNumber: "2019123457",
-          customerName: "李四",
+          oid: "2019123457",
+          username: "李四",
           totalAmount: 200,
-          status: "已完成",
+          ostatus: "已完成",
         },
         {
           productImage: "https://via.placeholder.com/80x80",
-          orderNumber: "2019123458",
-          customerName: "王五",
+          oid: "2019123458",
+          username: "王五",
           totalAmount: 150,
-          status: "进行中",
+          ostatus: "进行中",
         },
       ],
     };
@@ -62,6 +69,15 @@ export default {
         })
       }
     },
+    async delOrder(order) {
+    let res = await deleteOrderAPI({
+      oid: order.oid
+    })
+    if(res.data.code == 200) {
+      alert("删除成功！")
+      this.$router.go(0);
+    }
+  }
   },
 };
 </script>

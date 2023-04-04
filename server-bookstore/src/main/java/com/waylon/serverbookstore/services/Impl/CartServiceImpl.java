@@ -35,8 +35,7 @@ public class CartServiceImpl implements ICartService {
     @Override
     public void delOrder(Cart order) {
         QueryWrapper<Cart> cartQueryWrapper = new QueryWrapper<>();
-        cartQueryWrapper.eq("uid", order.getUid());
-        cartQueryWrapper.eq("bid", order.getBid());
+        cartQueryWrapper.eq("oid", order.getOid());
         cartMapper.delete(cartQueryWrapper);
     }
 

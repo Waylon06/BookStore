@@ -39,10 +39,12 @@ public class CartController {
 
     @DeleteMapping("/del")
     public Respond delOrder( Cart order) {
-        System.out.println(order.getBid());
-        System.out.println(order.getUid());
         cartService.delOrder(order);
-        return new Respond(Code.SUCCESS, "删除成功", null);
+        if (order != null) {
+            return new Respond(Code.SUCCESS, "删除成功", null);
+        }else {
+            return new Respond(Code.ERROR, "后台未接收到数据", null);
+        }
     }
 
     @PutMapping("/submit")
@@ -53,7 +55,12 @@ public class CartController {
     }
     @GetMapping("/finished")
     public Respond finishOrders(Integer uid) {
-        List<Cart> carts = cartService.selectFinishOrdersByUid(uid);
-        return new Respond(Code.SUCCESS, "获取成功", carts);
+        if (uid != null) {
+            List<Cart> carts = cartService.selectFinishOrdersByUid(uid);
+            return new Respond(Code.SUCCESS, "获取成功", carts);
+        }
+        else {
+            return new Respond(Code.ERROR, "未获取到用户信息", null);
+        }
     }
 }

@@ -44,7 +44,7 @@
             <el-menu-item index="/order">我的订单</el-menu-item>
             <div class="login">
               <router-link to="/login" v-show="!isLogined">登录</router-link>
-              <p v-show="isLogined">{{userInfo.username}}</p>
+              <div v-show="isLogined">{{userInfo.username}} <el-button icon="el-icon-close" size="mini" type="danger" circle @click="logout"></el-button> </div>
             </div>
           </el-menu>
         </div>
@@ -73,6 +73,10 @@ export default {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
+    logout() {
+      sessionStorage.removeItem("userInfo")
+      this.$router.go(0)
+    }
   },
    computed: {
       ...mapState(["isLogined", "userInfo"])

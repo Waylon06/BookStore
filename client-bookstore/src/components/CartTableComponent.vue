@@ -117,7 +117,7 @@ export default {
       });
       if (res.data.code == 200) {
         alert("删除成功");
-        this.$router.push(0);
+        this.$router.go(0);
       }
     },
     incrementNum(product) {
